@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from Git repository
-                git 'https://your.git.repository/url.git'
+                git 'https://github.com/NinjaMaya.git'
             }
         }
 
