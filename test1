@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from Git repository
+                git 'https://your.git.repository/url.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Your build commands or scripts go here
+                sh 'mvn clean install'  // Example for a Maven project
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Your test commands or scripts go here
+                sh 'mvn test'  // Example for a Maven project
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Your deployment commands or scripts go here
+                sh './deploy.sh'  // Example for a shell script
+            }
+        }
+    }
+
+    post {
+        success {
+            // Actions to perform when the build is successful
+            echo 'Build successful!'
+
+            // Example: Send notification or trigger another job
+            // slackSend(channel: '#general', color: 'good', message: 'Build successful!')
+        }
+        failure {
+            // Actions to perform when the build fails
+            echo 'Build failed!'
+
+            // Example: Send notification or trigger another job
+            // slackSend(channel: '#general', color: 'danger', message: 'Build failed!')
+        }
+    }
+}
